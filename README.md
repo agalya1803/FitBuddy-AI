@@ -49,3 +49,4 @@ FitBuddy/
 ├── .gitignore
 ├── requirements.txt
 └── README.md
+This project generates personalised AI-based fitness plans using Artiificial Intelligence
