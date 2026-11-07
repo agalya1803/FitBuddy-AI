@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitBuddy - All Users</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="page wide">
+<div class="card">
+<div class="topbar">
+<div>
+<h1>All Users</h1>
+<p class="subtitle">FitBuddy user records</p>
+</div>
+<a class="small-link" href="/">Home</a>
+</div>
+
+{% if users %}
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Details</th>
+<th>Original Plan</th>
+<th>Updated Plan</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+{% for user in users %}
+<tr>
+<td>
+<strong>{{ user.name }}</strong><br>
+{{ user.user_id }}
+</td>
+<td>
+Age: {{ user.age }}<br>
+Weight: {{ user.weight }} kg<br>
+Goal: {{ user.goal|title }}<br>
+Intensity: {{ user.intensity|title }}
+</td>
+<td>
+{% if user.plan %}
+<pre class="mini-plan">{{ user.plan.original_plan }}</pre>
+{% else %}
+No plan
+{% endif %}
+</td>
+<td>
+{% if user.plan and user.plan.updated_plan %}
+<pre class="mini-plan">{{ user.plan.updated_plan }}</pre>
+{% else %}
+Not updated
+{% endif %}
+</td>
+<td>
+<form action="/delete-user/{{ user.user_id }}" method="post">
+<button class="danger" type="submit">Delete</button>
+</form>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% else %}
+<p>No users have been registered yet.</p>
+{% endif %}
+
+<div class="links">
+<a href="/">Back to Home</a>
+<a href="/docs">API Docs</a>
+</div>
+
+</div>
+</div>
+</body>
+</html>

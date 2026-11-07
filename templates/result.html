@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your FitBuddy Plan</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="page wide">
+<div class="card">
+
+<div class="topbar">
+<div>
+<h1>Your FitBuddy Plan</h1>
+<p class="subtitle">Personalised fitness support</p>
+</div>
+<a class="small-link" href="/">New Plan</a>
+</div>
+
+{% if message %}
+<div class="alert success">{{ message }}</div>
+{% endif %}
+
+<div class="profile">
+
+<div>
+<strong>Name</strong>
+<span>{{ user.name }}</span>
+</div>
+
+<div>
+<strong>User ID</strong>
+<span>{{ user.user_id }}</span>
+</div>
+
+<div>
+<strong>Age</strong>
+<span>{{ user.age }}</span>
+</div>
+
+<div>
+<strong>Weight</strong>
+<span>{{ user.weight }} kg</span>
+</div>
+
+<div>
+<strong>Goal</strong>
+<span>{{ user.goal|title }}</span>
+</div>
+
+<div>
+<strong>Intensity</strong>
+<span>{{ user.intensity|title }}</span>
+</div>
+
+</div>
+
+<h2>7-Day Workout Plan</h2>
+
+<pre class="plan">{{ plan.updated_plan if plan.updated_plan else plan.original_plan }}</pre>
+
+<h2>Nutrition / Recovery Tip</h2>
+
+<div class="tip">
+{{ plan.nutrition_tip }}
+</div>
+
+<h2>Update Your Plan</h2>
+
+<p class="muted">
+Tell FitBuddy what you want to change, such as more cardio,
+easier workouts or more rest.
+</p>
+
+<form action="/submit-feedback" method="post">
+
+<input type="hidden" name="user_id" value="{{ user.user_id }}">
+
+<textarea name="feedback" rows="5" maxlength="2000" required placeholder="Example: Add more cardio and one extra recovery day."></textarea>
+
+<button type="submit">Update Plan with AI</button>
+
+</form>
+
+<div class="links">
+<a href="/">Back to Home</a>
+<a href="/view-all-users">View All Users</a>
+</div>
+
+</div>
+</div>
+</body>
+</html>
